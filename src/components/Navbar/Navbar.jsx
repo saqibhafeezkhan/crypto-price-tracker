@@ -1,12 +1,13 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import {Button} from 'react-bootstrap';
 import './Navbar.css';
 import logo from '../../assets/b4b2a15c-087a-4bd9-b6f8-0f1333f81c79 1.svg';
 
+
 const Navbar = () => {
   return (
-    <div className='Navbar'>
-        <img src={logo} alt="logo" className='logo' height={100} width={380} />
+    <div className='navbar'>
+        <img src={logo} alt="logo" className='logo' height={70} width={380} />
         <ul>
             <li>Home</li>
             <li>Features</li>
