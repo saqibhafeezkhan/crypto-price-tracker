@@ -1,0 +1,167 @@
+.coin {
+  padding: 20px 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+.coin-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #3c3c3c;
+  padding-bottom: 20px;
+}
+
+.coin-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.coin-info img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.coin-info h1 {
+  font-size: 32px;
+  color: #fff;
+}
+
+.coin-price-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.price-card {
+  background: linear-gradient(rgba(101, 35, 245, 0.15), rgba(125, 5, 180, 0.15));
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 3px solid #6b47f5;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.price-card p {
+  color: #b3b3b3;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.price-card h2 {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 8px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.price-change {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.price-change.green {
+  color: #00d084;
+}
+
+.price-change.red {
+  color: #ff6b6b;
+}
+
+.coin-chart {
+  background: linear-gradient(rgba(101, 35, 245, 0.15), rgba(125, 5, 180, 0.15));
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.coin-chart h3 {
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.sparkline-chart {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+
+.coin-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.details-card {
+  background: linear-gradient(rgba(101, 35, 245, 0.15), rgba(125, 5, 180, 0.15));
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 3px solid #6b47f5;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+
+.details-card h3 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.details-card p {
+  color: #e3e3e3;
+  line-height: 1.6;
+  font-size: 14px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.details-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.details-card li {
+  color: #e3e3e3;
+  padding: 8px 0;
+  border-bottom: 1px solid #4a4a4a;
+  font-size: 14px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.details-card li:last-child {
+  border-bottom: none;
+}
+
+.details-card strong {
+  color: #6b47f5;
+}
+
+@media (max-width: 600px) {
+  .coin-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .coin-info h1 {
+    font-size: 24px;
+  }
+
+  .coin-price-section {
+    grid-template-columns: 1fr;
+  }
+
+  .coin-details {
+    grid-template-columns: 1fr;
+  }
+}

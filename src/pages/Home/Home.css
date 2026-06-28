@@ -67,4 +67,18 @@
     padding:15px 20px;
     align-items:center;
     border-bottom:1px solid #3c3c3c;
+    text-decoration:none;
+    color:inherit;
+}
+
+.table-layout div{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.table-layout img{
+    width:24px;
+    height:24px;
+    object-fit:contain;
 }
