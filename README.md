@@ -5,7 +5,8 @@ A modern, responsive web application for tracking cryptocurrency prices in real-
 ## 🚀 Features
 
 - **Real-time Price Tracking**: Get up-to-date cryptocurrency prices across multiple currencies
-- **Responsive Design**: Fully responsive UI built with React and Bootstrap
+- **Search**: Find any coin in the CoinGecko catalogue by name or symbol
+- **Responsive Design**: Fully responsive layout with custom CSS breakpoints
 - **Multiple Currency Support**: Track prices in different fiat currencies
 - **Detailed Coin Information**: View comprehensive details for individual cryptocurrencies
 - **Clean UI/UX**: Modern and intuitive user interface
@@ -16,7 +17,7 @@ A modern, responsive web application for tracking cryptocurrency prices in real-
 - **Frontend Framework**: React 18.3.1
 - **Build Tool**: Vite 6.0.5
 - **Routing**: React Router DOM 7.1.1
-- **UI Framework**: Bootstrap 5.3.3 & React Bootstrap 2.10.7
+- **Styling**: Custom CSS
 - **API**: CoinGecko API (free tier)
 - **Linting**: ESLint 9.17.0
 
@@ -108,7 +109,9 @@ src/
 ├── pages/            # Page components
 │   ├── Home/         # Homepage with coin list
 │   └── Coin/         # Individual coin details page
-├── context/          # React Context for state management
+├── context/          # Coin context, hook and provider
+├── constants/        # Shared constants (supported currencies)
+├── services/         # CoinGecko API client
 ├── assets/           # Static assets
 ├── App.jsx           # Main App component
 ├── main.jsx          # Entry point

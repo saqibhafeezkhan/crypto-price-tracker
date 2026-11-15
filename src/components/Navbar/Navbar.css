@@ -2,31 +2,16 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:20px;
     padding:20px 10%;
     color:#ddd;
     border-bottom: 2px solid #3c3c3c;
 }
-.navbar ul{
-    display: flex;
-    gap: 40px;
-    list-style: none;
-}
-.navbar li{
-    cursor:pointer;
-    font-size:20px;
-}
-
-.navbar a{
-    text-decoration: none;
-    color: #ddd;
-    transition: color 0.3s ease;
-}
-
-.navbar a:hover{
-    color: #6b47f5;
-}
 
 .navbar .logo{
+    display:block;
+    max-width:100%;
+    height:auto;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -38,7 +23,6 @@
 .nav-right{
     display:flex;
     align-items:center;
-    gap:(1vw,12px);
 }
 
 .navbar select{
@@ -48,7 +32,6 @@
     background: transparent;
     color:white;
     font-size:20px;
-
 }
 
 .navbar option{
@@ -56,17 +39,46 @@
     color:white;
 }
 
-.navbar button{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 25px;
-    border-radius:20px;
-    font-size:15px;
-    font-weight:500;
-    color:#393939;
-    background:white;
-    border:none;
-    cursor:pointer;
-    margin-left:15px;
+@media (max-width:1024px){
+    .navbar{
+        padding:18px 5%;
+    }
+
+    .navbar select{
+        font-size:17px;
+    }
+
+    .navbar .logo{
+        width:280px;
+    }
+}
+
+@media (max-width:768px){
+    .navbar{
+        gap:14px;
+        padding:16px;
+    }
+
+    .navbar .logo{
+        width:200px;
+    }
+
+    .navbar select{
+        font-size:16px;
+    }
+}
+
+@media (max-width:400px){
+    .navbar{
+        padding:12px;
+    }
+
+    .navbar .logo{
+        width:150px;
+    }
+
+    .navbar select{
+        padding:4px 6px;
+        font-size:14px;
+    }
 }

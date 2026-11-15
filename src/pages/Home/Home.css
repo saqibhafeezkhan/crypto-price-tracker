@@ -54,6 +54,21 @@
     cursor:pointer;
 }
 
+.hero .clear-search{
+    width:auto;
+    flex:0 0 auto;
+    background:transparent;
+    color:#666;
+    font-size:22px;
+    line-height:1;
+    padding:0 6px;
+    border-radius:0;
+}
+
+.hero .clear-search:hover{
+    color:#393939;
+}
+
 .crypto-table{
     max-width:800px;
     margin:auto;
@@ -75,10 +90,124 @@
     display:flex;
     align-items:center;
     gap:8px;
+    min-width:0;
+}
+
+.table-layout div p{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
 .table-layout img{
     width:24px;
     height:24px;
+    flex:0 0 auto;
     object-fit:contain;
+}
+
+.table-layout .align-center{
+    text-align:center;
+}
+
+.table-layout .align-right{
+    text-align:right;
+}
+
+.change-up{
+    color:green;
+}
+
+.change-down{
+    color:red;
+}
+
+.no-results{
+    padding:30px 20px;
+    text-align:center;
+    color:#e3e3e3;
+    font-size:16px;
+}
+
+.search-note{
+    padding:0 20px 20px;
+    text-align:center;
+    color:#b3b3b3;
+    font-size:13px;
+}
+
+@media (max-width:700px){
+    .hero{
+        margin:40px auto;
+        gap:20px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .hero p{
+        width:100%;
+        font-size:16px;
+    }
+
+    .hero form{
+        width:100%;
+        font-size:16px;
+    }
+
+    .hero button{
+        padding:10px 18px;
+    }
+
+    .crypto-table{
+        border-radius:10px;
+    }
+
+    .table-layout{
+        grid-template-columns:0.4fr 2fr 1fr 1fr;
+        gap:8px;
+        padding:12px;
+        font-size:14px;
+    }
+
+    .table-layout > *:nth-child(5){
+        display:none;
+    }
+}
+
+@media (max-width:480px){
+    .hero h1{
+        font-size:26px;
+    }
+
+    .hero form{
+        flex-wrap:wrap;
+    }
+
+    .hero input{
+        min-width:0;
+        width:100%;
+        flex:1 1 100%;
+        padding:6px 0;
+    }
+
+    .hero button{
+        width:100%;
+    }
+
+    .table-layout{
+        grid-template-columns:0.4fr 1.6fr 1fr;
+        padding:10px;
+        font-size:13px;
+    }
+
+    .table-layout > *:nth-child(4){
+        display:none;
+    }
+
+    .table-layout img{
+        width:20px;
+        height:20px;
+    }
 }
