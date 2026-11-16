@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import './Home.css';
 import { useCoin } from '../../context/coinContext';
-import { fetchMarkets, searchCoins } from '../../services/coingecko';
+import { fetchMarkets, searchCoins } from '../../services/cryptoApi';
 
 const formatChange = (value) =>
   Number.isFinite(value) ? `${Math.floor(value * 100) / 100}%` : '—';
@@ -38,8 +38,8 @@ const Home = () => {
     setSearchParams(next, { replace: true });
   }, [term, searchParams, setSearchParams]);
 
-  // Search the whole CoinGecko catalogue: match ids by name/symbol, then price them
-  // in the selected currency. Falls back to the loaded list if the API is unavailable.
+  // Search the whole catalogue: match ids by name/symbol, then price them in the
+  // selected currency. Falls back to the loaded list if the API is unavailable.
   useEffect(() => {
     if (!term) {
       setRemoteResults([]);

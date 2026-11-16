@@ -4,7 +4,7 @@ import './Coin.css';
 import PriceChart from '../../components/PriceChart/PriceChart';
 import { CHART_RANGES, DEFAULT_CHART_RANGE, getChartRequestParams } from '../../constants/chartRanges';
 import { useCoin } from '../../context/coinContext';
-import { fetchCoin, fetchMarketChart } from '../../services/coingecko';
+import { fetchCoin, fetchMarketChart } from '../../services/cryptoApi';
 
 const FALLBACK = '—';
 

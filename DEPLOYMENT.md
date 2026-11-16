@@ -2,9 +2,18 @@
 
 This guide covers deployment options for the Crypto Price Tracker application.
 
+> **⚠️ The app now requires a Node server.** Market data is fetched by the local API
+> in `server/` and stored in `data/*.json` for four hours; the browser only reads
+> `/api/...`. A pure static host (GitHub Pages, a static Netlify/Vercel site) can no
+> longer answer those requests: run `npm run build` and then `npm start` on any
+> Node host (Render, Railway, Fly.io, a VPS, Docker), and set `VITE_COINGECKO_API_KEY`,
+> `VITE_COINMARKETCAP_API_KEY` and `PORT` there. The provider keys are server-side
+> and are no longer inlined into the bundle.
+
 ## 🔐 Pre-Deployment Checklist
 
 - [ ] Environment variables are set up correctly
+- [ ] `npm run build` followed by `npm start` serves both the app and `/api`
 - [ ] Code passes linting: `npm run lint`
 - [ ] Application builds successfully: `npm run build`
 - [ ] No console errors in development
@@ -36,6 +45,7 @@ Vercel is the creator of Next.js and provides excellent support for Vite applica
 4. **Configure environment variables**:
    - Go to Settings → Environment Variables
    - Add: `VITE_COINGECKO_API_KEY` = your API key
+   - Optional: `VITE_COINMARKETCAP_API_KEY` = your CoinMarketCap key (fallback when CoinGecko is rate limited)
 
 5. **Deploy**:
    - Vercel will automatically deploy from the main branch
@@ -62,6 +72,7 @@ Vercel is the creator of Next.js and provides excellent support for Vite applica
 4. **Set environment variables**:
    - Go to Site settings → Build & deploy → Environment
    - Add: `VITE_COINGECKO_API_KEY`
+   - Optional: `VITE_COINMARKETCAP_API_KEY` (fallback when CoinGecko is rate limited)
 
 ### 3. GitHub Pages
 

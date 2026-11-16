@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CoinContext } from './coinContext';
 import { DEFAULT_CURRENCY } from '../constants/currencies';
-import { fetchMarkets } from '../services/coingecko';
+import { fetchMarkets } from '../services/cryptoApi';
 
 const CoinContextProvider = ({ children }) => {
   const [allCoin, setAllCoin] = useState([]);
