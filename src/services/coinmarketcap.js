@@ -1,6 +1,4 @@
-import { readEnv } from './env.js';
-
-const apiKey = () => readEnv('VITE_COINMARKETCAP_API_KEY');
+const apiKey = () => import.meta.env.VITE_COINMARKETCAP_API_KEY;
 
 // Without a key the client uses CoinMarketCap's keyless public API, which serves
 // the listings, quotes and map endpoints for free but no price history.
@@ -14,7 +12,8 @@ const LOGO_BASE_URL = 'https://s2.coinmarketcap.com/static/img/coins/64x64';
 const AUX_FIELDS = 'cmc_rank,max_supply,circulating_supply,total_supply';
 
 const request = async (path, { signal } = {}) => {
-  const baseUrl = readEnv('VITE_CMC_API_BASE_URL', 'https://pro-api.coinmarketcap.com');
+  const baseUrl =
+    import.meta.env.VITE_CMC_API_BASE_URL || 'https://pro-api.coinmarketcap.com';
   const key = apiKey();
 
   const response = await fetch(`${baseUrl}${basePath()}${path}`, {

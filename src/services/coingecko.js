@@ -1,11 +1,9 @@
-import { readEnv } from './env.js';
-
-// The demo key keeps a fresh clone working; deployments should set
-// VITE_COINGECKO_API_KEY in the server environment (see .env.example).
-const apiKey = () => readEnv('VITE_COINGECKO_API_KEY', 'CG-EcPpaPKYcgVrtn6szPjdjCFU');
+// The demo key keeps a fresh clone working; set VITE_COINGECKO_API_KEY in
+// .env.local to use your own quota (see .env.example).
+const apiKey = () => import.meta.env.VITE_COINGECKO_API_KEY || 'CG-EcPpaPKYcgVrtn6szPjdjCFU';
 
 const request = async (path, { signal } = {}) => {
-  const baseUrl = readEnv('VITE_API_BASE_URL', 'https://api.coingecko.com/api/v3');
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'https://api.coingecko.com/api/v3';
 
   const response = await fetch(`${baseUrl}${path}`, {
     headers: {

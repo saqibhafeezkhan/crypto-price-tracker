@@ -11,7 +11,8 @@ import * as okx from './okx.js';
 // answered: the exchange providers are the only ones with keyless price history
 // but no market caps, so a chart call must not demote the coin list to them.
 //
-// This runs on the API server (see server/), never in the browser.
+// These calls are made by the browser, so the chain also absorbs CORS failures
+// and missing browser-demo quotas on top of ordinary rate limits.
 const PROVIDERS = [
   ['coingecko', coinGecko],
   ['coinmarketcap', coinMarketCap],

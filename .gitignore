@@ -36,5 +36,3 @@ Thumbs.db
 build/
 out/
 
-# Cached market data written by the local API
-data/

@@ -1,4 +1,3 @@
-import { readEnv } from './env.js';
 import { describe, loadSymbolIndex, toSymbol } from './symbols.js';
 
 // Binance quotes against USDT rather than USD and lists no EUR/INR pairs, so this
@@ -19,7 +18,7 @@ const toNumber = (value) => {
 };
 
 const request = async (path, { signal } = {}) => {
-  const baseUrl = readEnv('VITE_BINANCE_API_BASE_URL', 'https://api.binance.com');
+  const baseUrl = import.meta.env.VITE_BINANCE_API_BASE_URL || 'https://api.binance.com';
 
   const response = await fetch(`${baseUrl}${path}`, {
     headers: { accept: 'application/json' },

@@ -7,7 +7,7 @@ A modern, responsive web application for tracking cryptocurrency prices, backed 
 - **Real-time Price Tracking**: Get up-to-date cryptocurrency prices across multiple currencies
 - **Search**: Find any coin in the CoinGecko catalogue by name or symbol
 - **Resilient Fetching**: Falls back through CoinMarketCap, Binance and OKX when CoinGecko is rate-limited
-- **Four-Hour Retention**: A local API stores each response in `data/*.json` and reuses it for four hours
+- **Four-Hour Retention**: Each response is kept as a JSON document in the browser and reused for four hours
 - **Responsive Design**: Fully responsive layout with custom CSS breakpoints
 - **Multiple Currency Support**: Track prices in different fiat currencies
 - **Detailed Coin Information**: View comprehensive details for individual cryptocurrencies
@@ -21,12 +21,11 @@ A modern, responsive web application for tracking cryptocurrency prices, backed 
 - **Routing**: React Router DOM 7.1.1
 - **Styling**: Custom CSS
 - **API**: CoinGecko API (free tier) with CoinMarketCap, Binance and OKX fallbacks
-- **API Server**: Small dependency-free Node server (`server/`) serving `/api` from a JSON store
 - **Linting**: ESLint 9.17.0
 
 ## 📋 Prerequisites
 
-- Node.js 20.12 or higher (the API server uses `process.loadEnvFile`)
+- Node.js 18 or higher
 - npm or yarn package manager
 - A CoinGecko API key (get it for free at [coingecko.com](https://www.coingecko.com/en/api))
 
@@ -61,7 +60,7 @@ npm run dev
 
 The application will be available at `http://localhost:5173`.
 
-Vite also mounts the local API on the same server, so the app's `/api/...` requests are answered without running a second process. Fetched data is written to `data/` and reused for four hours.
+Market data is fetched straight from the browser, so there is no second process to start. Responses are cached for four hours and survive reloads.
 
 ## 🔨 Build
 
@@ -70,14 +69,7 @@ Build for production:
 npm run build
 ```
 
-The optimized build files will be in the `dist` folder.
-
-Serve the build together with the API:
-```bash
-npm start
-```
-
-The server listens on `http://localhost:8787` (or `$PORT`) and falls back to `index.html` for client-side routes.
+The optimized build files will be in the `dist` folder. They are plain static assets: any static host works, because the app talks to the providers directly from the browser.
 
 ## 📝 Linting
 
@@ -92,8 +84,6 @@ Preview the production build locally:
 ```bash
 npm run preview
 ```
-
-The local API is mounted on the preview server as well, so `/api` works exactly as in `npm start`.
 
 ## 📦 Deployment
 
@@ -117,8 +107,6 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed GitHub Pages deployment instruct
 ## 📂 Project Structure
 
 ```
-server/                # Local API: JSON store, request handlers, production server
-data/                  # One JSON file per cached query (created at runtime, git-ignored)
 src/
 ├── components/        # Reusable UI components
 │   └── Navbar/       # Navigation component
@@ -127,7 +115,7 @@ src/
 │   └── Coin/         # Individual coin details page
 ├── context/          # Coin context, hook and provider
 ├── constants/        # Shared constants (supported currencies)
-├── services/         # Browser API client plus the provider clients and fallback chain
+├── services/         # Provider clients, fallback chain and the four-hour JSON cache
 ├── assets/           # Static assets
 ├── App.jsx           # Main App component
 ├── main.jsx          # Entry point
@@ -141,10 +129,9 @@ Create a `.env.local` file with the following:
 ```
 VITE_COINGECKO_API_KEY=your_coingecko_api_key
 VITE_COINMARKETCAP_API_KEY=your_coinmarketcap_api_key  # optional fallback
-PORT=8787  # optional, used by `npm start`
 ```
 
-Keys are read by the local API server, not by the page code, so they never reach the browser bundle. The `VITE_` prefixes are kept for compatibility with existing setups and do not require changing.
+`VITE_`-prefixed values are compiled into the bundle, which is what these keys need: they are read by the browser. Treat them as public (the CoinGecko demo key ships in the default build), or route the calls through your own backend if you need them private.
 
 If `VITE_COINMARKETCAP_API_KEY` is set, the app falls back to CoinMarketCap whenever a CoinGecko request fails (for example when the free-tier rate limit is exhausted). Without a key it falls back to CoinMarketCap's keyless public API instead, which covers prices, search and coin details but no price history.
 
@@ -154,15 +141,9 @@ If `VITE_COINMARKETCAP_API_KEY` is set, the app falls back to CoinMarketCap when
 
 This project uses the [CoinGecko API](https://www.coingecko.com/en/api/documentation) with fallbacks to [CoinMarketCap](https://coinmarketcap.com/api/documentation/v1/), [Binance](https://developers.binance.com/docs/binance-spot-api-docs) and [OKX](https://www.okx.com/docs-v5/en/). Each read walks that chain and uses the first provider that answers, so a CoinGecko rate limit does not take the app down. Binance and OKX only quote USDT pairs, so they are skipped for EUR and INR.
 
-Successful responses are retained for four hours (`RETENTION_MS` in `server/store.js`). Each one is written to `data/<query>.json` as `{ key, fetchedAt, data }`, and every read — including after a restart — reuses that file until the window expires. Prices therefore do not refresh more often than once every four hours.
+Successful responses are retained for four hours (`RETENTION_MS` in `src/services/store.js`). Each answer is stored in the browser as a JSON document under `crypto-tracker:<query>` in the form `{ key, fetchedAt, data }`, and a reload reuses it until the window expires. Prices therefore do not refresh more often than once every four hours, and clearing site data forces a fresh fetch. If storage is unavailable or full, the cache falls back to an in-memory copy for the session.
 
-### Local API:
-- `/api/markets?vsCurrency=usd&perPage=250&ids=bitcoin,ethereum` - coin list
-- `/api/coins/:coinId?vsCurrency=usd` - single coin details
-- `/api/charts/:coinId?vsCurrency=usd&days=7` - price history (or `from`/`to` timestamps)
-- `/api/search?query=bit` - matching coins
-
-### Provider Endpoints Used:
+### Endpoints Used:
 - `/coins/markets` - Get market data for multiple cryptocurrencies
 - `/coins/{id}` - Get detailed information about a specific cryptocurrency
 - `/coins/{id}/market_chart` - Get price history for the chart

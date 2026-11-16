@@ -1,4 +1,3 @@
-import { readEnv } from './env.js';
 import { describe, loadSymbolIndex, toSymbol } from './symbols.js';
 
 // OKX quotes against USDT rather than USD and lists no EUR/INR pairs, so this
@@ -14,7 +13,7 @@ const INTERVALS = [
 
 // OKX reports logical errors with a 200 status and a non-zero code.
 const request = async (path, { signal } = {}) => {
-  const baseUrl = readEnv('VITE_OKX_API_BASE_URL', 'https://www.okx.com');
+  const baseUrl = import.meta.env.VITE_OKX_API_BASE_URL || 'https://www.okx.com';
 
   const response = await fetch(`${baseUrl}${path}`, {
     headers: { accept: 'application/json' },

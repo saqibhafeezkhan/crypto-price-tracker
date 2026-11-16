@@ -2,18 +2,15 @@
 
 This guide covers deployment options for the Crypto Price Tracker application.
 
-> **⚠️ The app now requires a Node server.** Market data is fetched by the local API
-> in `server/` and stored in `data/*.json` for four hours; the browser only reads
-> `/api/...`. A pure static host (GitHub Pages, a static Netlify/Vercel site) can no
-> longer answer those requests: run `npm run build` and then `npm start` on any
-> Node host (Render, Railway, Fly.io, a VPS, Docker), and set `VITE_COINGECKO_API_KEY`,
-> `VITE_COINMARKETCAP_API_KEY` and `PORT` there. The provider keys are server-side
-> and are no longer inlined into the bundle.
+> **ℹ️ Static hosting is enough.** The app fetches market data straight from the browser
+> and caches it for four hours in `localStorage`, so `npm run build` plus any static
+> host (Vercel, Netlify, GitHub Pages) works — no Node process to run. Set
+> `VITE_COINGECKO_API_KEY` and, optionally, `VITE_COINMARKETCAP_API_KEY` in the host's
+> environment; those values are compiled into the bundle, so treat them as public.
 
 ## 🔐 Pre-Deployment Checklist
 
 - [ ] Environment variables are set up correctly
-- [ ] `npm run build` followed by `npm start` serves both the app and `/api`
 - [ ] Code passes linting: `npm run lint`
 - [ ] Application builds successfully: `npm run build`
 - [ ] No console errors in development
