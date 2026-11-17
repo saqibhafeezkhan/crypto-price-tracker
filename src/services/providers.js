@@ -53,5 +53,5 @@ export const fetchMarketChart = (coinId, options = {}) =>
   run(
     'fetchMarketChart',
     [coinId, options],
-    (data) => Array.isArray(data?.prices) && data.prices.length > 0
+    (data) => Array.isArray(data?.prices) && data.prices.length > 0,
   );

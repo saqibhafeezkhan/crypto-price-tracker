@@ -86,11 +86,13 @@ export const fetchMarkets = async ({ vsCurrency, ids, perPage = 250, signal } = 
       .sort(sortByRank);
   }
 
-  return tickers
-    .map((ticker) => toMarket(ticker, index))
-    // OKX has no market cap, so the list is ranked by traded value instead.
-    .sort((a, b) => (b.total_volume ?? 0) - (a.total_volume ?? 0))
-    .slice(0, perPage);
+  return (
+    tickers
+      .map((ticker) => toMarket(ticker, index))
+      // OKX has no market cap, so the list is ranked by traded value instead.
+      .sort((a, b) => (b.total_volume ?? 0) - (a.total_volume ?? 0))
+      .slice(0, perPage)
+  );
 };
 
 export const fetchCoin = async (coinId, vsCurrency, { signal } = {}) => {

@@ -28,10 +28,7 @@ const CoinContextProvider = ({ children }) => {
     };
   }, [currency.name]);
 
-  const contextValue = useMemo(
-    () => ({ allCoin, currency, setCurrency }),
-    [allCoin, currency]
-  );
+  const contextValue = useMemo(() => ({ allCoin, currency, setCurrency }), [allCoin, currency]);
 
   return <CoinContext.Provider value={contextValue}>{children}</CoinContext.Provider>;
 };

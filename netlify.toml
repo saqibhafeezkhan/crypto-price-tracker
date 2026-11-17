@@ -1,19 +1,19 @@
 [build]
-  command = "npm run build"
-  functions = "netlify/functions"
-  publish = "dist"
+command = "npm run build"
+functions = "netlify/functions"
+publish = "dist"
 
 [dev]
-  command = "npm run dev"
-  port = 5173
+command = "npm run dev"
+port = 5173
 
 [context.production.environment]
-  VITE_COINGECKO_API_KEY = "VITE_COINGECKO_API_KEY"
+VITE_COINGECKO_API_KEY = "VITE_COINGECKO_API_KEY"
 
 [context.deploy-preview.environment]
-  VITE_COINGECKO_API_KEY = "VITE_COINGECKO_API_KEY"
+VITE_COINGECKO_API_KEY = "VITE_COINGECKO_API_KEY"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+from = "/*"
+to = "/index.html"
+status = 200

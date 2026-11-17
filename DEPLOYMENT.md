@@ -28,6 +28,7 @@ Vercel is the creator of Next.js and provides excellent support for Vite applica
 #### Steps:
 
 1. **Push your code to GitHub**
+
    ```bash
    git push origin main
    ```
@@ -76,17 +77,19 @@ Vercel is the creator of Next.js and provides excellent support for Vite applica
 #### Steps:
 
 1. **Update `vite.config.js`** (if deploying to `github.com/username/crypto-price-tracker`):
+
    ```javascript
-   import { defineConfig } from 'vite'
-   import react from '@vitejs/plugin-react'
+   import { defineConfig } from 'vite';
+   import react from '@vitejs/plugin-react';
 
    export default defineConfig({
      plugins: [react()],
-     base: '/crypto-price-tracker/',  // Add this line
-   })
+     base: '/crypto-price-tracker/', // Add this line
+   });
    ```
 
 2. **Add GitHub Pages deployment script** to `package.json`:
+
    ```json
    {
      "scripts": {
@@ -96,11 +99,13 @@ Vercel is the creator of Next.js and provides excellent support for Vite applica
    ```
 
 3. **Install gh-pages**:
+
    ```bash
    npm install --save-dev gh-pages
    ```
 
 4. **Deploy**:
+
    ```bash
    npm run deploy
    ```
@@ -113,6 +118,7 @@ Vercel is the creator of Next.js and provides excellent support for Vite applica
 ### 4. Docker Deployment
 
 #### Dockerfile:
+
 ```dockerfile
 # Build stage
 FROM node:18-alpine as builder
@@ -132,6 +138,7 @@ CMD ["http-server", "dist", "-p", "3000"]
 ```
 
 #### Build and run:
+
 ```bash
 docker build -t crypto-tracker .
 docker run -p 3000:3000 -e VITE_COINGECKO_API_KEY=your_key crypto-tracker
@@ -142,6 +149,7 @@ docker run -p 3000:3000 -e VITE_COINGECKO_API_KEY=your_key crypto-tracker
 #### Steps:
 
 1. **Build the application**:
+
    ```bash
    npm run build
    ```
@@ -149,6 +157,7 @@ docker run -p 3000:3000 -e VITE_COINGECKO_API_KEY=your_key crypto-tracker
 2. **Upload the `dist` folder** to your server
 
 3. **Configure web server** (Nginx example):
+
    ```nginx
    server {
        listen 80;
@@ -171,6 +180,7 @@ docker run -p 3000:3000 -e VITE_COINGECKO_API_KEY=your_key crypto-tracker
 Before deploying:
 
 1. **Build analysis**:
+
    ```bash
    npm run build
    # Check the dist folder size
@@ -232,6 +242,7 @@ jobs:
 ## 🐛 Troubleshooting
 
 ### Build fails
+
 ```bash
 # Clean install
 rm -rf node_modules package-lock.json
@@ -240,15 +251,18 @@ npm run build
 ```
 
 ### 404 errors on routes
+
 - Ensure your hosting is configured to serve `index.html` for all routes
 - This is especially important for React Router
 
 ### API key not working
+
 - Verify key is set as environment variable
 - Check if API quota exceeded
 - Ensure URL is correct in code
 
 ### Slow performance
+
 - Enable gzip compression
 - Use CDN
 - Optimize images
@@ -274,6 +288,7 @@ npm run build
 ## 🆘 Support
 
 For deployment issues:
+
 1. Check the platform's documentation
 2. Open an issue on GitHub
 3. Check browser console for errors

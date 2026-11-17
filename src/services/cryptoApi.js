@@ -14,7 +14,7 @@ export const fetchMarkets = ({ vsCurrency, ids, perPage = 250, signal } = {}) =>
   const scope = ids && ids.length > 0 ? [...ids].sort().join(',') : 'top';
 
   return withStore(`markets:${vsCurrency}:${perPage}:${scope}`, () =>
-    loadMarkets({ vsCurrency, ids, perPage, signal })
+    loadMarkets({ vsCurrency, ids, perPage, signal }),
   );
 };
 
@@ -30,5 +30,5 @@ export const fetchCoin = (coinId, vsCurrency, { signal } = {}) =>
 
 export const fetchMarketChart = (coinId, { vsCurrency, days, from, to, signal } = {}) =>
   withStore(`chart:${coinId}:${vsCurrency}:${rangeScope({ days, from, to })}`, () =>
-    loadMarketChart(coinId, { vsCurrency, days, from, to, signal })
+    loadMarketChart(coinId, { vsCurrency, days, from, to, signal }),
   );

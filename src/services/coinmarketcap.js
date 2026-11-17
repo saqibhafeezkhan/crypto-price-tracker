@@ -12,8 +12,7 @@ const LOGO_BASE_URL = 'https://s2.coinmarketcap.com/static/img/coins/64x64';
 const AUX_FIELDS = 'cmc_rank,max_supply,circulating_supply,total_supply';
 
 const request = async (path, { signal } = {}) => {
-  const baseUrl =
-    import.meta.env.VITE_CMC_API_BASE_URL || 'https://pro-api.coinmarketcap.com';
+  const baseUrl = import.meta.env.VITE_CMC_API_BASE_URL || 'https://pro-api.coinmarketcap.com';
   const key = apiKey();
 
   const response = await fetch(`${baseUrl}${basePath()}${path}`, {
@@ -33,7 +32,7 @@ const request = async (path, { signal } = {}) => {
   // CoinMarketCap reports some failures with a 200 status and an error_code.
   if (body?.status?.error_code) {
     throw new Error(
-      `CoinMarketCap request failed: ${body.status.error_code} ${body.status.error_message || ''}`.trim()
+      `CoinMarketCap request failed: ${body.status.error_code} ${body.status.error_message || ''}`.trim(),
     );
   }
 
@@ -77,7 +76,7 @@ export const fetchMarkets = async ({ vsCurrency, ids, perPage = 250, signal } = 
   if (ids && ids.length > 0) {
     const body = await request(
       `/v3/cryptocurrency/quotes/latest?slug=${encodeURIComponent(ids.join(','))}&convert=${convert}&aux=${AUX_FIELDS}`,
-      { signal }
+      { signal },
     );
 
     return entriesOf(body)
@@ -87,7 +86,7 @@ export const fetchMarkets = async ({ vsCurrency, ids, perPage = 250, signal } = 
 
   const body = await request(
     `/v3/cryptocurrency/listings/latest?convert=${convert}&limit=${perPage}`,
-    { signal }
+    { signal },
   );
 
   return entriesOf(body).map((entry) => toMarket(entry, convert));
@@ -100,7 +99,9 @@ let catalogPromise = null;
 
 export const fetchCatalog = ({ signal } = {}) => {
   if (!catalogPromise) {
-    catalogPromise = request('/v1/cryptocurrency/map?listing_status=active&sort=cmc_rank', { signal })
+    catalogPromise = request('/v1/cryptocurrency/map?listing_status=active&sort=cmc_rank', {
+      signal,
+    })
       .then((body) => entriesOf(body))
       .catch((error) => {
         catalogPromise = null;
@@ -118,7 +119,7 @@ export const searchCoins = async (query, { signal } = {}) => {
   const coins = catalog
     .filter(
       (entry) =>
-        entry.name?.toLowerCase().includes(term) || entry.symbol?.toLowerCase().includes(term)
+        entry.name?.toLowerCase().includes(term) || entry.symbol?.toLowerCase().includes(term),
     )
     .slice(0, 50)
     .map((entry) => ({ id: entry.slug, name: entry.name, symbol: entry.symbol }));
@@ -140,7 +141,7 @@ export const fetchCoin = async (coinId, vsCurrency, { signal } = {}) => {
   const convert = vsCurrency.toUpperCase();
   const body = await request(
     `/v3/cryptocurrency/quotes/latest?slug=${encodeURIComponent(coinId)}&convert=${convert}&aux=${AUX_FIELDS}`,
-    { signal }
+    { signal },
   );
 
   const entry = entriesOf(body)[0];

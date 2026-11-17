@@ -40,6 +40,7 @@ Be respectful and inclusive. Treat all contributors with courtesy.
    ```bash
    npm run dev
    npm run lint
+   npm run format:check
    npm run build
    ```
 5. **Push to your fork**:
@@ -55,7 +56,8 @@ Be respectful and inclusive. Treat all contributors with courtesy.
 ## 🎨 Code Style
 
 - Use ES6+ syntax
-- Follow ESLint rules (`npm run lint`)
+- Follow the oxlint rules (`npm run lint`)
+- Format code with oxfmt (`npm run format`)
 - Use meaningful variable and function names
 - Add comments for complex logic
 - Keep components small and focused
@@ -75,6 +77,7 @@ chore: update dependencies
 ```
 
 Example:
+
 ```
 feat: add multiple currency support to price display
 
@@ -101,6 +104,9 @@ npm run dev
 
 # Run linter
 npm run lint
+
+# Format code
+npm run format
 
 # Build for production
 npm run build

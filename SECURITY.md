@@ -12,9 +12,11 @@
 **Please DO NOT open a public issue for security vulnerabilities.**
 
 If you discover a security vulnerability, please email:
+
 - **security@example.com** (replace with actual contact)
 
 Include the following information:
+
 1. Description of the vulnerability
 2. Steps to reproduce
 3. Potential impact
@@ -25,12 +27,14 @@ We will acknowledge your report within 48 hours and work on a fix as soon as pos
 ## Security Best Practices
 
 ### For Developers
+
 - Never commit `.env.local` or any sensitive files
 - Use `npm audit` regularly to check for vulnerabilities
 - Keep dependencies up to date
 - Review code before merging
 
 ### For Users
+
 - Keep your CoinGecko API key private
 - Don't share `.env` files
 - Use strong passwords for hosting platforms

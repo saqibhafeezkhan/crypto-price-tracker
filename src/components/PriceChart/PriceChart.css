@@ -1,68 +1,68 @@
-.price-chart{
-    margin:0;
+.price-chart {
+  margin: 0;
 }
 
-.price-chart-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:8px;
+.price-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
-.price-chart-title{
-    color:#fff;
-    font-size:18px;
-    font-weight:600;
+.price-chart-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.price-chart-change{
-    padding:3px 10px;
-    border-radius:999px;
-    font-size:14px;
-    font-weight:600;
-    background:rgba(255, 255, 255, 0.08);
+.price-chart-change {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.price-chart.is-up .price-chart-change{
-    color:#00d084;
-    background:rgba(0, 208, 132, 0.12);
+.price-chart.is-up .price-chart-change {
+  color: #00d084;
+  background: rgba(0, 208, 132, 0.12);
 }
 
-.price-chart.is-down .price-chart-change{
-    color:#ff6b6b;
-    background:rgba(255, 107, 107, 0.12);
+.price-chart.is-down .price-chart-change {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.12);
 }
 
-.price-chart-svg{
-    display:block;
-    width:100%;
-    height:auto;
-    color:#00d084;
+.price-chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: #00d084;
 }
 
-.price-chart.is-down .price-chart-svg{
-    color:#ff6b6b;
+.price-chart.is-down .price-chart-svg {
+  color: #ff6b6b;
 }
 
-.price-chart-grid{
-    stroke:#ffffff;
-    stroke-opacity:0.08;
-    stroke-width:1;
-    vector-effect:non-scaling-stroke;
+.price-chart-grid {
+  stroke: #ffffff;
+  stroke-opacity: 0.08;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
 
-.price-chart-footer{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:space-between;
-    gap:8px;
-    margin-top:10px;
-    color:#b3b3b3;
-    font-size:13px;
+.price-chart-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  color: #b3b3b3;
+  font-size: 13px;
 }
 
-.price-chart-empty{
-    color:#b3b3b3;
-    font-size:14px;
+.price-chart-empty {
+  color: #b3b3b3;
+  font-size: 14px;
 }

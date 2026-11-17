@@ -21,7 +21,8 @@ A modern, responsive web application for tracking cryptocurrency prices, backed 
 - **Routing**: React Router DOM 7.1.1
 - **Styling**: Custom CSS
 - **API**: CoinGecko API (free tier) with CoinMarketCap, Binance and OKX fallbacks
-- **Linting**: ESLint 9.17.0
+- **Linting**: oxlint 1.94.0
+- **Formatting**: oxfmt 0.79.0
 
 ## 📋 Prerequisites
 
@@ -32,12 +33,14 @@ A modern, responsive web application for tracking cryptocurrency prices, backed 
 ## 🔧 Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/yourusername/crypto-price-tracker.git
    cd crypto-price-tracker
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
@@ -54,6 +57,7 @@ A modern, responsive web application for tracking cryptocurrency prices, backed 
 ## 🚀 Development
 
 Run the development server:
+
 ```bash
 npm run dev
 ```
@@ -65,22 +69,37 @@ Market data is fetched straight from the browser, so there is no second process 
 ## 🔨 Build
 
 Build for production:
+
 ```bash
 npm run build
 ```
 
 The optimized build files will be in the `dist` folder. They are plain static assets: any static host works, because the app talks to the providers directly from the browser.
 
-## 📝 Linting
+## 📝 Linting & Formatting
 
-Check for code quality issues:
+Check for code quality issues with [oxlint](https://oxc.rs/docs/guide/usage/linter):
+
 ```bash
 npm run lint
+```
+
+Format the codebase with [oxfmt](https://oxc.rs/docs/guide/usage/formatter):
+
+```bash
+npm run format
+```
+
+Check formatting without writing changes:
+
+```bash
+npm run format:check
 ```
 
 ## 👀 Preview
 
 Preview the production build locally:
+
 ```bash
 npm run preview
 ```
@@ -88,12 +107,14 @@ npm run preview
 ## 📦 Deployment
 
 ### Using Vercel (Recommended)
+
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com) and connect your repository
 3. Set environment variables in Vercel dashboard
 4. Deploy with one click!
 
 ### Using Netlify
+
 1. Push your code to GitHub
 2. Connect your repository to Netlify
 3. Set build command: `npm run build`
@@ -102,6 +123,7 @@ npm run preview
 6. Deploy!
 
 ### Using GitHub Pages
+
 See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed GitHub Pages deployment instructions.
 
 ## 📂 Project Structure
@@ -144,6 +166,7 @@ This project uses the [CoinGecko API](https://www.coingecko.com/en/api/documenta
 Successful responses are retained for four hours (`RETENTION_MS` in `src/services/store.js`). Each answer is stored in the browser as a JSON document under `crypto-tracker:<query>` in the form `{ key, fetchedAt, data }`, and a reload reuses it until the window expires. Prices therefore do not refresh more often than once every four hours, and clearing site data forces a fresh fetch. If storage is unavailable or full, the cache falls back to an in-memory copy for the session.
 
 ### Endpoints Used:
+
 - `/coins/markets` - Get market data for multiple cryptocurrencies
 - `/coins/{id}` - Get detailed information about a specific cryptocurrency
 - `/coins/{id}/market_chart` - Get price history for the chart

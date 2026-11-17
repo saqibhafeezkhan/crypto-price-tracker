@@ -103,8 +103,14 @@ const PriceChart = ({ prices = [], symbol = '', title = 'Last 7 days', period = 
       </svg>
 
       <p className="price-chart-footer">
-        <span>{period} low {symbol}{formatPrice(rawMin)}</span>
-        <span>{period} high {symbol}{formatPrice(rawMax)}</span>
+        <span>
+          {period} low {symbol}
+          {formatPrice(rawMin)}
+        </span>
+        <span>
+          {period} high {symbol}
+          {formatPrice(rawMax)}
+        </span>
       </p>
     </figure>
   );

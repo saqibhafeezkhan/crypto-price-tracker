@@ -60,10 +60,9 @@ export const fetchMarkets = async ({ vsCurrency, ids, perPage = 250, signal } = 
   if (ids && ids.length > 0) {
     const symbols = await Promise.all(ids.slice(0, 100).map((id) => toSymbol(id)));
     const pairs = JSON.stringify(symbols.map(pairFor));
-    const tickers = await request(
-      `/api/v3/ticker/24hr?symbols=${encodeURIComponent(pairs)}`,
-      { signal }
-    );
+    const tickers = await request(`/api/v3/ticker/24hr?symbols=${encodeURIComponent(pairs)}`, {
+      signal,
+    });
 
     return (Array.isArray(tickers) ? tickers : [])
       .map((ticker) => toMarket(ticker, index))
@@ -72,12 +71,14 @@ export const fetchMarkets = async ({ vsCurrency, ids, perPage = 250, signal } = 
 
   const tickers = await request('/api/v3/ticker/24hr', { signal });
 
-  return (Array.isArray(tickers) ? tickers : [])
-    .filter((ticker) => ticker.symbol.endsWith(QUOTE_ASSET))
-    .map((ticker) => toMarket(ticker, index))
-    // Binance has no market cap, so the list is ranked by traded value instead.
-    .sort(sortByVolume)
-    .slice(0, perPage);
+  return (
+    (Array.isArray(tickers) ? tickers : [])
+      .filter((ticker) => ticker.symbol.endsWith(QUOTE_ASSET))
+      .map((ticker) => toMarket(ticker, index))
+      // Binance has no market cap, so the list is ranked by traded value instead.
+      .sort(sortByVolume)
+      .slice(0, perPage)
+  );
 };
 
 export const fetchCoin = async (coinId, vsCurrency, { signal } = {}) => {
@@ -110,7 +111,7 @@ export const fetchMarketChart = async (coinId, { vsCurrency, days, from, to, sig
 
   const klines = await request(
     `/api/v3/klines?symbol=${pairFor(symbol)}&interval=${interval.token}&limit=${limit}`,
-    { signal }
+    { signal },
   );
 
   return {
