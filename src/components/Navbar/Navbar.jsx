@@ -1,31 +1,33 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../assets/b4b2a15c-087a-4bd9-b6f8-0f1333f81c79 1.svg';
-import { CURRENCIES, DEFAULT_CURRENCY } from '../../constants/currencies';
-import { useCoin } from '../../context/coinContext';
+
+const NAV_ITEMS = [
+  { to: '/', label: 'Home', end: true },
+  { to: '/pools', label: 'Pools' },
+  { to: '/fundamentals', label: 'DeFi' },
+  { to: '/news', label: 'News' },
+  { to: '/about', label: 'About' },
+];
 
 const Navbar = () => {
-  const { currency, setCurrency } = useCoin();
-
-  const handleCurrencyChange = (event) => {
-    const { value } = event.target;
-    setCurrency(CURRENCIES.find((option) => option.name === value) || DEFAULT_CURRENCY);
-  };
-
   return (
     <div className="navbar">
       <Link to="/">
         <img src={logo} alt="logo" className="logo" height={70} width={380} />
       </Link>
-      <div className="nav-right">
-        <select value={currency.name} onChange={handleCurrencyChange} aria-label="Currency">
-          {CURRENCIES.map(({ name }) => (
-            <option key={name} value={name}>
-              {name.toUpperCase()}
-            </option>
-          ))}
-        </select>
-      </div>
+      <nav className="nav-links" aria-label="Primary">
+        {NAV_ITEMS.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={({ isActive }) => `nav-link${isActive ? ' is-active' : ''}`}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import './Home.css';
 import { useCoin } from '../../context/coinContext';
+import { CURRENCIES, DEFAULT_CURRENCY } from '../../constants/currencies';
 import { fetchMarkets, searchCoins } from '../../services/cryptoApi';
 
 const formatChange = (value) =>
@@ -13,9 +14,14 @@ const changeClass = (value) => {
 };
 
 const Home = () => {
-  const { allCoin, currency } = useCoin();
+  const { allCoin, currency, setCurrency } = useCoin();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(() => searchParams.get('q') || '');
+
+  const handleCurrencyChange = (event) => {
+    const { value } = event.target;
+    setCurrency(CURRENCIES.find((option) => option.name === value) || DEFAULT_CURRENCY);
+  };
 
   const allCoinRef = useRef(allCoin);
   useEffect(() => {
@@ -128,6 +134,17 @@ const Home = () => {
           )}
           <button type="submit">Search</button>
         </form>
+
+        <label className="hero-currency">
+          <span>Display prices in</span>
+          <select value={currency.name} onChange={handleCurrencyChange} aria-label="Currency">
+            {CURRENCIES.map(({ name }) => (
+              <option key={name} value={name}>
+                {name.toUpperCase()}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
       <div className="crypto-table">
         <div className="table-layout">

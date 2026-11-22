@@ -1,0 +1,56 @@
+name: Refresh crypto news
+
+on:
+  schedule:
+    # Every 6 hours. Quick enough for a headline page, and it keeps repository
+    # history and deploys quiet. The page flags a snapshot older than 7 hours.
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: crypto-news
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # fast-xml-parser is a devDependency and the feed adapter needs it.
+      - run: npm ci
+
+      - name: Refresh coin identifiers
+        # CoinGecko's top-100 list changes slowly; refresh it on manual runs
+        # only so the scheduled job stays within rate limits.
+        if: github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        run: npm run refresh:coins
+
+      - name: Build news snapshot
+        run: npm run refresh:news
+        env:
+          # Optional enrichment. Both are empty when the secret is unset, which
+          # simply disables that adapter; RSS alone is enough for the page.
+          CRYPTOPANIC_API_KEY: ${{ secrets.CRYPTOPANIC_API_KEY }}
+          CRYPTOPANIC_API_PLAN: ${{ vars.CRYPTOPANIC_API_PLAN }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+
+      - name: Commit refreshed snapshot
+        run: |
+          if [ -z "$(git status --porcelain public/data/news src/constants/topCoins.js)" ]; then
+            echo "Snapshot unchanged; nothing to commit."
+            exit 0
+          fi
+          git config user.name 'news-refresh[bot]'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/data/news src/constants/topCoins.js
+          git commit -m "chore: refresh crypto news snapshot"
+          git push
