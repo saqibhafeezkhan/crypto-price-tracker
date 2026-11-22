@@ -1,0 +1,44 @@
+name: Refresh DeFi fundamentals
+
+on:
+  schedule:
+    # Hourly. This data does not need to be real time, and the snapshot is
+    # committed to the repository, so a faster cadence mostly adds history.
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: defi-fundamentals
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build snapshot
+        run: npm run refresh:defi
+        env:
+          # Optional: the free DefiLlama API needs no key. Set the repository
+          # secret to route the job through the Pro host instead.
+          DEFI_LLAMA_API_KEY: ${{ secrets.DEFI_LLAMA_API_KEY }}
+
+      - name: Commit refreshed snapshot
+        run: |
+          if [ -z "$(git status --porcelain public/data/defi)" ]; then
+            echo "Snapshot unchanged; nothing to commit."
+            exit 0
+          fi
+          git config user.name 'defi-refresh[bot]'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/data/defi
+          git commit -m "chore: refresh DeFi fundamentals snapshot"
+          git push

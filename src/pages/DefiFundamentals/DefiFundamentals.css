@@ -1,0 +1,783 @@
+.defi {
+  --defi-border: rgba(255, 255, 255, 0.08);
+  padding: 0 10px 100px;
+}
+
+.defi .chain-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+
+.defi .is-up {
+  color: #4ade80;
+}
+
+.defi .is-down {
+  color: #ff6b81;
+}
+
+.defi-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  max-width: 1180px;
+  margin: 48px auto 24px;
+}
+
+.defi-eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #a9a2ff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.defi-hero h1 {
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.1;
+}
+
+.defi-hero p {
+  max-width: 680px;
+  margin-top: 12px;
+  color: #b9b9d6;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.defi-meta {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  color: #9d9dbb;
+  font-size: 13px;
+  text-align: right;
+}
+
+.defi-meta-line small {
+  display: block;
+  color: #8f8fb0;
+  font-size: 12px;
+}
+
+.defi-meta-source a {
+  color: #b9b2ff;
+  text-decoration: underline;
+}
+
+.defi-button {
+  padding: 9px 16px;
+  border: 1px solid #6b47f5;
+  border-radius: 8px;
+  background: rgba(107, 71, 245, 0.2);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.defi-button:hover:not(:disabled) {
+  border-color: #8b6cff;
+  background: rgba(107, 71, 245, 0.34);
+}
+
+.defi-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.defi-note {
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 200, 87, 0.35);
+  border-radius: 10px;
+  background: rgba(255, 200, 87, 0.08);
+  color: #f5d78e;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.defi-note--error {
+  border-color: rgba(255, 107, 129, 0.4);
+  background: rgba(255, 107, 129, 0.08);
+  color: #ffb3bd;
+}
+
+.defi-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 107, 129, 0.4);
+  border-radius: 12px;
+  background: rgba(255, 107, 129, 0.08);
+  color: #ffb3bd;
+  font-size: 14px;
+}
+
+.defi-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 1180px;
+  margin: 0 auto 30px;
+}
+
+.defi-card {
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: linear-gradient(rgba(101, 35, 245, 0.15), rgba(125, 5, 180, 0.15));
+}
+
+.defi-card-label {
+  display: block;
+  color: #b3b3c9;
+  font-size: 13px;
+}
+
+.defi-card strong {
+  display: block;
+  margin: 6px 0 2px;
+  color: #fff;
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+.defi-card-hint {
+  color: #8f8fb0;
+  font-size: 12px;
+}
+
+.defi-section {
+  max-width: 1180px;
+  margin: 0 auto 34px;
+  padding: 20px 22px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  background: rgba(10, 10, 40, 0.22);
+}
+
+.defi-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.defi-section-head h2 {
+  font-size: 20px;
+}
+
+.defi-section-head p {
+  max-width: 620px;
+  margin-top: 6px;
+  color: #9d9dbb;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.defi-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.defi-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9d9dbb;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.defi-select select {
+  padding: 8px 10px;
+  border: 1px solid #3c3c5c;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(10, 10, 40, 0.45);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.defi-select select:focus {
+  border-color: #6b47f5;
+}
+
+.defi-select option {
+  background-color: #09005c;
+  color: #fff;
+}
+
+.defi-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid #3c3c5c;
+  border-radius: 9px;
+  background: rgba(10, 10, 40, 0.45);
+}
+
+.defi-toggle button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #b3b3c9;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.defi-toggle button:hover {
+  color: #fff;
+}
+
+.defi-toggle button.is-active {
+  background: rgba(107, 71, 245, 0.32);
+  color: #fff;
+}
+
+.defi-chain-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #b3b3c9;
+  font-size: 13px;
+}
+
+.defi-chain-stats strong {
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.defi-chain-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--chain-color, #fff);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.defi-table-scroll {
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: linear-gradient(rgba(101, 35, 245, 0.12), rgba(125, 5, 180, 0.12));
+}
+
+.defi-table {
+  min-width: 100%;
+}
+
+.defi-table--chains {
+  min-width: 940px;
+}
+
+/* The grid tracks below are wider than these minimums would otherwise allow.
+   Match them to the summed column widths so the last column (P/F) stays inside
+   the horizontal scroll area instead of being clipped. */
+.defi-table--protocols {
+  min-width: 1700px;
+}
+
+.defi-table--protocols.is-chain-view {
+  min-width: 1600px;
+}
+
+.defi-row {
+  display: grid;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #3c3c3c;
+  font-size: 14px;
+}
+
+.defi-row:last-child {
+  border-bottom: 0;
+}
+
+.defi-row--head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #241a52;
+  color: #b3b3c9;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.defi-row.is-selected {
+  background: rgba(107, 71, 245, 0.16);
+}
+
+.defi-table--chains .defi-row {
+  grid-template-columns: minmax(150px, 1.5fr) repeat(9, minmax(76px, 1fr));
+}
+
+.defi-table--protocols .defi-row {
+  grid-template-columns:
+    34px minmax(190px, 1.7fr) 110px 100px 68px 68px 68px 96px 96px 96px 96px 96px 96px
+    84px 84px 130px;
+}
+
+/* Leaderboard columns follow the active ranking. */
+.defi-table--protocols.is-rank-tvl {
+  min-width: 740px;
+}
+
+.defi-table--protocols.is-rank-tvl .defi-row {
+  grid-template-columns: 34px minmax(190px, 1.7fr) 110px 100px repeat(3, 68px);
+}
+
+.defi-table--protocols.is-rank-fees30d {
+  min-width: 970px;
+}
+
+.defi-table--protocols.is-rank-fees30d .defi-row {
+  grid-template-columns: 34px minmax(210px, 1.7fr) 110px repeat(3, 96px) 84px 130px;
+}
+
+.defi-table--protocols.is-rank-revenue30d {
+  min-width: 830px;
+}
+
+.defi-table--protocols.is-rank-revenue30d .defi-row {
+  grid-template-columns: 34px minmax(210px, 1.7fr) 110px repeat(3, 96px) 84px;
+}
+
+.defi-table--protocols.is-chain-view .defi-row {
+  grid-template-columns:
+    34px minmax(190px, 1.7fr) 100px 68px 68px 68px 96px 96px 96px 96px 96px 96px 84px
+    84px 130px;
+}
+
+.defi .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.defi-sort {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.defi-sort:hover,
+.defi-sort.is-active {
+  color: #fff;
+}
+
+.defi-sort span {
+  color: #7c7c9e;
+  font-size: 10px;
+}
+
+.defi-chain-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.defi-chain-cell:hover {
+  color: #c8c2ff;
+  text-decoration: underline;
+}
+
+.defi-rank {
+  color: #8f8fb0;
+  font-variant-numeric: tabular-nums;
+}
+
+.defi-protocol {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.defi-protocol-name {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  overflow: hidden;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.defi-symbol {
+  color: #8f8fb0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.defi-protocol-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.defi-category-pill {
+  display: inline-flex;
+  padding: 1px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  color: #b3b3c9;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.defi-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: help;
+}
+
+.defi-badge--mercenary {
+  border: 1px solid rgba(255, 200, 87, 0.45);
+  background: rgba(255, 200, 87, 0.12);
+  color: #f5d78e;
+}
+
+.defi-badge--organic {
+  border: 1px solid rgba(74, 222, 128, 0.45);
+  background: rgba(74, 222, 128, 0.12);
+  color: #86efac;
+}
+
+.defi-chains {
+  overflow: hidden;
+  color: #b3b3c9;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.defi-pf {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.25;
+}
+
+.defi-token-price {
+  color: #8f8fb0;
+  font-size: 10px;
+}
+
+.defi-table-caption {
+  padding: 12px 16px 0;
+  color: #9d9dbb;
+  font-size: 12px;
+}
+
+.defi-placeholder {
+  padding: 26px 16px;
+  color: #9d9dbb;
+  font-size: 14px;
+  text-align: center;
+}
+
+.defi-skeleton {
+  display: block;
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.14),
+    rgba(255, 255, 255, 0.06)
+  );
+  background-size: 200% 100%;
+  animation: defi-shimmer 1.4s ease-in-out infinite;
+}
+
+.defi-skeleton--short {
+  height: 10px;
+  opacity: 0.7;
+}
+
+.defi-skeleton--small {
+  width: 18px;
+  height: 10px;
+  opacity: 0.7;
+}
+
+.defi-row--skeleton {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+@keyframes defi-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.defi-chart-wrap {
+  margin-top: 16px;
+}
+
+.defi-chart {
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #8a9dff;
+}
+
+.defi-chart-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.defi-chart-title {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.defi-chart-legend {
+  display: inline-flex;
+  gap: 14px;
+  color: #b3b3c9;
+  font-size: 12px;
+}
+
+.defi-legend::before {
+  display: inline-block;
+  width: 10px;
+  height: 3px;
+  margin-right: 6px;
+  border-radius: 2px;
+  vertical-align: middle;
+  content: '';
+}
+
+.defi-legend--tvl::before {
+  background: #8a9dff;
+}
+
+.defi-legend--fees::before {
+  background: #f5d04a;
+}
+
+.defi-chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.defi-chart-grid {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-dasharray: 3 4;
+}
+
+.defi-chart-tvl-area {
+  color: #8a9dff;
+}
+
+.defi-chart-tvl {
+  fill: none;
+  stroke: #8a9dff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.defi-chart-fees {
+  fill: none;
+  stroke: #f5d04a;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5 3;
+}
+
+.defi-chart-axis {
+  fill: #8f8fb0;
+  font-size: 10px;
+}
+
+.defi-chart-axis--fees {
+  fill: #c9b06a;
+}
+
+.defi-chart-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: #8f8fb0;
+  font-size: 11px;
+}
+
+.defi-chart-placeholder {
+  padding: 44px 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #9d9dbb;
+  font-size: 13px;
+  text-align: center;
+}
+
+.defi-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  background: rgba(10, 10, 40, 0.22);
+  color: #b3b3c9;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.defi-footer h2 {
+  margin-bottom: 12px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.defi-footer dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 26px;
+}
+
+.defi-footer dt {
+  color: #fff;
+  font-weight: 600;
+}
+
+.defi-footer dd {
+  margin-top: 2px;
+  color: #9d9dbb;
+}
+
+.defi-footer-note {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8f8fb0;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .defi-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .defi-footer dl {
+    grid-template-columns: 1fr;
+  }
+
+  .defi-hero,
+  .defi-meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .defi-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .defi-meta-line small {
+    display: inline;
+    margin-left: 6px;
+  }
+}
+
+@media (max-width: 560px) {
+  .defi {
+    padding-bottom: 60px;
+  }
+
+  .defi-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .defi-section {
+    padding: 16px 14px;
+  }
+
+  .defi-meta {
+    align-items: flex-start;
+  }
+}

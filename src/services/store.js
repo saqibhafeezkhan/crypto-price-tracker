@@ -65,14 +65,22 @@ const writeEntry = (key, entry) => {
 const bucketOf = (seconds) =>
   Number.isFinite(seconds) ? Math.floor(seconds / (RETENTION_MS / 1000)) : 'now';
 
+// A page that must keep showing something when a request fails can read the last
+// document directly instead of waiting for it to be refetched.
+export const readStored = (key) => readEntry(key);
+
 export const rangeScope = ({ days, from, to } = {}) =>
   days ? `${days}d` : `${bucketOf(from)}-${bucketOf(to)}`;
 
-export const withStore = async (key, load) => {
-  const stored = readEntry(key);
+// Queries that change quickly (live pool volumes, for example) pass a shorter
+// retention, and a manual refresh can skip the read but still writes the answer.
+export const withStore = async (key, load, { retentionMs = RETENTION_MS, force = false } = {}) => {
+  if (!force) {
+    const stored = readEntry(key);
 
-  if (stored && Date.now() - stored.fetchedAt < RETENTION_MS) {
-    return stored.data;
+    if (stored && Date.now() - stored.fetchedAt < retentionMs) {
+      return stored.data;
+    }
   }
 
   // A failed or aborted load throws, so nothing stale or partial is written.

@@ -69,6 +69,36 @@
   color: #393939;
 }
 
+.hero-currency {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: -14px;
+  color: #c9c9e2;
+  font-size: 14px;
+}
+
+.hero-currency select {
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  outline: none;
+  background: rgba(10, 10, 40, 0.45);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hero-currency select:focus {
+  border-color: #6b47f5;
+}
+
+.hero-currency option {
+  background-color: #09005c;
+  color: #fff;
+}
+
 .crypto-table {
   max-width: 800px;
   margin: auto;
