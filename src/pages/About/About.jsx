@@ -23,7 +23,7 @@ const PROJECT_PAGES = [
     source: 'DexScreener and GeckoTerminal',
   },
   {
-    to: '/fundamentals',
+    to: '/defi',
     kicker: 'Protocols',
     title: 'DeFi Fundamentals',
     description:

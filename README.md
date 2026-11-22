@@ -173,7 +173,7 @@ Successful responses are retained for four hours (`RETENTION_MS` in `src/service
 
 ## 📊 DeFi Fundamentals
 
-The `/fundamentals` page tracks TVL, fees and revenue for the top DeFi protocols across the 20 largest chains from the DEX Pools set. DEX Pools still covers all 25; the DeFi cut drops the five smallest by TVL (Blast, Sonic, Scroll, zkSync and Celo) as a fixed list in `DEFI_CHAINS`, so the summary table does not reshuffle between refreshes.
+The `/defi` page tracks TVL, fees and revenue for the top DeFi protocols across the 20 largest chains from the DEX Pools set. DEX Pools still covers all 25; the DeFi cut drops the five smallest by TVL (Blast, Sonic, Scroll, zkSync and Celo) as a fixed list in `DEFI_CHAINS`, so the summary table does not reshuffle between refreshes.
 
 ### Data sources
 

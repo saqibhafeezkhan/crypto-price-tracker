@@ -5,7 +5,7 @@ import logo from '../../assets/b4b2a15c-087a-4bd9-b6f8-0f1333f81c79 1.svg';
 const NAV_ITEMS = [
   { to: '/', label: 'Home', end: true },
   { to: '/pools', label: 'Pools' },
-  { to: '/fundamentals', label: 'DeFi' },
+  { to: '/defi', label: 'DeFi' },
   { to: '/news', label: 'News' },
   { to: '/about', label: 'About' },
 ];
