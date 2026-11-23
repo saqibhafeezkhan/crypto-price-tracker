@@ -188,21 +188,27 @@ const ProtocolTable = ({
             </div>
 
             {showChains && (
-              <span className="defi-chains" title={(row.chains || []).join(', ')}>
+              <span
+                className="defi-chains"
+                data-label="Chains"
+                title={(row.chains || []).join(', ')}
+              >
                 {chainSummary(row)}
               </span>
             )}
 
             {showTvl && (
               <>
-                <span className="num">{formatUsd(row.tvl)}</span>
-                <span className={`num ${changeClass(row.tvlChange24h)}`}>
+                <span className="num" data-label="TVL">
+                  {formatUsd(row.tvl)}
+                </span>
+                <span className={`num ${changeClass(row.tvlChange24h)}`} data-label="24h">
                   {formatPercent(row.tvlChange24h)}
                 </span>
-                <span className={`num ${changeClass(row.tvlChange7d)}`}>
+                <span className={`num ${changeClass(row.tvlChange7d)}`} data-label="7d">
                   {formatPercent(row.tvlChange7d)}
                 </span>
-                <span className={`num ${changeClass(row.tvlChange30d)}`}>
+                <span className={`num ${changeClass(row.tvlChange30d)}`} data-label="30d">
                   {formatPercent(row.tvlChange30d)}
                 </span>
               </>
@@ -210,12 +216,21 @@ const ProtocolTable = ({
 
             {showFees && (
               <>
-                <span className="num">{formatUsd(row.fees24h)}</span>
-                <span className="num">{formatUsd(row.fees7d)}</span>
-                <span className="num">{formatUsd(row.fees30d)}</span>
-                <span className="num">{formatShareRatio(row.feesToTvl)}</span>
+                <span className="num" data-label="Fees 24h">
+                  {formatUsd(row.fees24h)}
+                </span>
+                <span className="num" data-label="Fees 7d">
+                  {formatUsd(row.fees7d)}
+                </span>
+                <span className="num" data-label="Fees 30d">
+                  {formatUsd(row.fees30d)}
+                </span>
+                <span className="num" data-label="Fees/TVL">
+                  {formatShareRatio(row.feesToTvl)}
+                </span>
                 <span
                   className="num defi-pf"
+                  data-label="P/F"
                   title={
                     row.coin
                       ? 'Market cap ÷ annualized 30d fees. Token price from the app price data.'
@@ -234,10 +249,18 @@ const ProtocolTable = ({
 
             {showRevenue && (
               <>
-                <span className="num">{formatUsd(row.revenue24h)}</span>
-                <span className="num">{formatUsd(row.revenue7d)}</span>
-                <span className="num">{formatUsd(row.revenue30d)}</span>
-                <span className="num">{formatShareRatio(row.revenueToTvl)}</span>
+                <span className="num" data-label="Rev 24h">
+                  {formatUsd(row.revenue24h)}
+                </span>
+                <span className="num" data-label="Rev 7d">
+                  {formatUsd(row.revenue7d)}
+                </span>
+                <span className="num" data-label="Rev 30d">
+                  {formatUsd(row.revenue30d)}
+                </span>
+                <span className="num" data-label="Rev/TVL">
+                  {formatShareRatio(row.revenueToTvl)}
+                </span>
               </>
             )}
           </div>

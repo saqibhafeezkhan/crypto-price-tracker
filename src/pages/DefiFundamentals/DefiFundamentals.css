@@ -781,3 +781,181 @@
     align-items: flex-start;
   }
 }
+
+/* Phones: the wide tables become labelled cards instead of a horizontal scroll. */
+@media (max-width: 768px) {
+  .defi-table-scroll {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .defi-table,
+  .defi-table--chains,
+  .defi-table--protocols,
+  .defi-table--protocols.is-rank-tvl,
+  .defi-table--protocols.is-rank-fees30d,
+  .defi-table--protocols.is-rank-revenue30d,
+  .defi-table--protocols.is-chain-view {
+    min-width: 0;
+  }
+
+  .defi-table--chains .defi-row,
+  .defi-table--protocols .defi-row,
+  .defi-table--protocols.is-rank-tvl .defi-row,
+  .defi-table--protocols.is-rank-fees30d .defi-row,
+  .defi-table--protocols.is-rank-revenue30d .defi-row,
+  .defi-table--protocols.is-chain-view .defi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 10px;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    background: rgba(10, 10, 40, 0.26);
+  }
+
+  /* Column headers turn into a sort-chip bar; the protocol head has nothing to sort. */
+  .defi-table--protocols .defi-row--head {
+    display: none;
+  }
+
+  .defi-table--chains .defi-row--head {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    background: rgba(10, 10, 40, 0.3);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .defi-table--chains .defi-row--head::before {
+    content: 'Sort';
+    color: #9d9dbb;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .defi-table--chains .defi-row--head > span {
+    display: none;
+  }
+
+  .defi-table--chains .defi-sort {
+    justify-content: center;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 11px;
+  }
+
+  .defi-table--chains .defi-sort.is-active {
+    border-color: #6b47f5;
+    background: rgba(107, 71, 245, 0.24);
+    color: #fff;
+  }
+
+  /* Each number shows the column label it lost with the hidden header. */
+  .defi-row .num {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    white-space: normal;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .defi-row .num::before {
+    content: attr(data-label);
+    color: #9d9dbb;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .defi-row .defi-pf {
+    align-items: flex-start;
+  }
+
+  /* An odd number of metrics would leave one value beside an empty slot. */
+  .defi-row > .num:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Skeleton cards: the name placeholder spans the card, and the rank
+     placeholder is hidden along with the badge it mimics. */
+  .defi-table--protocols .defi-row--skeleton .defi-skeleton:first-child {
+    display: none;
+  }
+
+  .defi-table--chains .defi-row--skeleton .defi-skeleton:first-child,
+  .defi-table--protocols .defi-row--skeleton .defi-skeleton:nth-child(2),
+  .defi-row--skeleton .defi-skeleton:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .defi-table--chains .defi-chain-cell {
+    grid-column: 1 / -1;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .defi-table--chains .defi-row.is-selected {
+    border-color: #6b47f5;
+    background: rgba(107, 71, 245, 0.18);
+  }
+
+  .defi-table--protocols .defi-row {
+    position: relative;
+  }
+
+  .defi-table--protocols .defi-rank {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 11px;
+  }
+
+  .defi-table--protocols .defi-protocol {
+    grid-column: 1 / -1;
+    gap: 6px;
+    padding-right: 32px;
+  }
+
+  .defi-table--protocols .defi-protocol-name {
+    white-space: normal;
+    font-size: 15px;
+  }
+
+  .defi-table--protocols .defi-chains {
+    grid-column: 1 / -1;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    white-space: normal;
+    font-size: 12px;
+  }
+
+  .defi-table--protocols .defi-chains::before {
+    display: block;
+    margin-bottom: 3px;
+    color: #9d9dbb;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    content: attr(data-label);
+  }
+}

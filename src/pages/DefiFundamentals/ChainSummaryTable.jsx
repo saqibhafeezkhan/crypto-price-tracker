@@ -86,21 +86,31 @@ const ChainSummaryTable = ({ chains, loading, selectedChainId, onSelect }) => {
                 {chain.name}
               </button>
 
-              <span className="num">{formatUsd(chain.tvl)}</span>
-              <span className={`num ${changeClass(chain.tvlChange24h)}`}>
+              <span className="num" data-label="TVL">
+                {formatUsd(chain.tvl)}
+              </span>
+              <span className={`num ${changeClass(chain.tvlChange24h)}`} data-label="24h">
                 {formatPercent(chain.tvlChange24h)}
               </span>
-              <span className={`num ${changeClass(chain.tvlChange7d)}`}>
+              <span className={`num ${changeClass(chain.tvlChange7d)}`} data-label="7d">
                 {formatPercent(chain.tvlChange7d)}
               </span>
-              <span className={`num ${changeClass(chain.tvlChange30d)}`}>
+              <span className={`num ${changeClass(chain.tvlChange30d)}`} data-label="30d">
                 {formatPercent(chain.tvlChange30d)}
               </span>
-              <span className="num">{formatUsd(chain.fees24h)}</span>
-              <span className="num">{formatUsd(chain.fees30d)}</span>
-              <span className="num">{formatUsd(chain.revenue24h)}</span>
-              <span className="num">{formatUsd(chain.revenue30d)}</span>
-              <span className="num">
+              <span className="num" data-label="Fees 24h">
+                {formatUsd(chain.fees24h)}
+              </span>
+              <span className="num" data-label="Fees 30d">
+                {formatUsd(chain.fees30d)}
+              </span>
+              <span className="num" data-label="Rev 24h">
+                {formatUsd(chain.revenue24h)}
+              </span>
+              <span className="num" data-label="Rev 30d">
+                {formatUsd(chain.revenue30d)}
+              </span>
+              <span className="num" data-label="Share">
                 {isNumber(chain.share) ? `${chain.share.toFixed(1)}%` : 'n/a'}
               </span>
             </div>

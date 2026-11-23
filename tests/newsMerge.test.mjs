@@ -102,6 +102,37 @@ test('unrelated stories and same-source reposts stay separate', () => {
   assert.equal(dedupeItems([first, repost]).length, 2);
 });
 
+test('a follow-up from an outlet already in a merged group stays separate', () => {
+  const decryptEarlier = buildItem(
+    raw({
+      sourceId: 'decrypt',
+      source: 'Decrypt',
+      url: 'https://decrypt.co/story',
+      publishedAt: '2026-11-22T09:00:00.000Z',
+    }),
+  );
+  const coinDeskMatch = buildItem(
+    raw({
+      url: 'https://www.coindesk.com/story',
+      publishedAt: '2026-11-22T09:30:00.000Z',
+    }),
+  );
+  const coinDeskFollowUp = buildItem(
+    raw({
+      url: 'https://www.coindesk.com/story-follow-up',
+      publishedAt: '2026-11-22T10:30:00.000Z',
+      title: 'Bitcoin rallies past $70,000 as ETF inflow surges',
+    }),
+  );
+
+  const merged = dedupeItems([decryptEarlier, coinDeskMatch, coinDeskFollowUp]);
+
+  assert.equal(merged.length, 2);
+  const group = merged.find((item) => item.sourceId === 'decrypt');
+  assert.equal(group.sourceCount, 2);
+  assert.equal(merged.filter((item) => item.sourceId === 'coindesk').length, 1);
+});
+
 test('retagItem recomputes stale tags on stored items', () => {
   const stored = {
     ...buildItem(raw({ title: 'Why CoinShares Just Sold Its Ethereum', summary: '' })),

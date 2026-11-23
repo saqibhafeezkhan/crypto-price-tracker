@@ -155,8 +155,10 @@ export const dedupeItems = (items) => {
     let target = null;
 
     for (const group of merged) {
-      // Syndicated copies always come from different outlets.
-      if (group.sourceId === item.sourceId) continue;
+      // Syndicated copies always come from different outlets. Check every outlet
+      // already in the group, not just the primary, so a follow-up from a source
+      // that was merged in later does not get folded into the same story.
+      if ((group.coverage || []).some((entry) => entry.sourceId === item.sourceId)) continue;
 
       const gap = Math.abs(Date.parse(group.publishedAt) - Date.parse(item.publishedAt));
       if (gap > NEAR_DUPLICATE_WINDOW_MS) continue;

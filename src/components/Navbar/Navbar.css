@@ -1,5 +1,6 @@
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
@@ -8,8 +9,14 @@
   border-bottom: 2px solid #3c3c3c;
 }
 
+.navbar-brand {
+  display: block;
+  line-height: 0;
+}
+
 .navbar .logo {
   display: block;
+  width: 380px;
   max-width: 100%;
   height: auto;
   cursor: pointer;
@@ -20,8 +27,61 @@
   transform: scale(1.05);
 }
 
+.nav-toggle {
+  display: none;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.nav-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(107, 71, 245, 0.16);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid #6b47f5;
+  outline-offset: 2px;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: #fff;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 .nav-links {
   display: flex;
+  flex: 0 1 auto;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -29,6 +89,7 @@
 }
 
 .nav-link {
+  display: block;
   padding: 9px 16px;
   border: 1px solid transparent;
   border-radius: 999px;
@@ -54,55 +115,65 @@
   color: #fff;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .navbar {
     padding: 18px 5%;
   }
 
   .navbar .logo {
-    width: 280px;
+    width: 300px;
   }
 }
 
-@media (max-width: 768px) {
+/* Bootstrap-style collapse: below lg the menu hides behind the toggle. */
+@media (max-width: 991.98px) {
   .navbar {
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 16px;
+    gap: 12px;
+    padding: 16px 5%;
   }
 
   .navbar .logo {
-    width: 200px;
+    width: 220px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
   }
 
   .nav-links {
+    display: none;
     order: 3;
     width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .nav-links.is-open {
+    display: flex;
   }
 
   .nav-link {
-    padding: 7px 12px;
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 10px;
+    text-align: left;
     font-size: 16px;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .navbar {
-    flex-wrap: wrap;
-    padding: 12px;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    gap: 4px;
+    padding: 12px 16px;
   }
 
   .navbar .logo {
-    width: 150px;
+    width: 170px;
   }
 
   .nav-link {
-    padding: 5px 8px;
-    font-size: 14px;
+    font-size: 15px;
   }
 }
