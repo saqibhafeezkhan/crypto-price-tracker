@@ -752,10 +752,13 @@
   }
 
   .defi-meta {
+    flex: 1 1 100%;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .defi-meta-line small {

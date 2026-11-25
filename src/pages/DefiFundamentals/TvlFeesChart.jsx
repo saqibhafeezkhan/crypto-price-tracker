@@ -1,8 +1,8 @@
-import { useId, useMemo } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatUsd } from './format';
 
-const VIEW_WIDTH = 720;
+const DEFAULT_WIDTH = 720;
 const VIEW_HEIGHT = 260;
 const PADDING = { top: 18, right: 66, bottom: 26, left: 10 };
 const GRID_LINES = [0, 0.5, 1];
@@ -39,6 +39,18 @@ const boundsOf = (points) => {
 const TvlFeesChart = ({ series, days }) => {
   const gradientId = `tvl-fees-gradient-${useId().replace(/:/g, '')}`;
 
+  // Draw at the rendered width so axis labels keep their real font size on narrow screens.
+  const [svg, setSvg] = useState(null);
+  const [width, setWidth] = useState(DEFAULT_WIDTH);
+  useEffect(() => {
+    if (!svg) return undefined;
+    const update = () => setWidth(svg.getBoundingClientRect().width || DEFAULT_WIDTH);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(svg);
+    return () => observer.disconnect();
+  }, [svg]);
+
   const { tvl, fees, dates } = useMemo(() => {
     const tvlPoints = toPoints(series?.tvl);
     const feePoints = toPoints(series?.fees);
@@ -59,7 +71,7 @@ const TvlFeesChart = ({ series, days }) => {
     return <p className="defi-placeholder">No chart data available for this window.</p>;
   }
 
-  const plotWidth = VIEW_WIDTH - PADDING.left - PADDING.right;
+  const plotWidth = width - PADDING.left - PADDING.right;
   const plotHeight = VIEW_HEIGHT - PADDING.top - PADDING.bottom;
   const baseline = PADDING.top + plotHeight;
 
@@ -96,8 +108,9 @@ const TvlFeesChart = ({ series, days }) => {
       </figcaption>
 
       <svg
+        ref={setSvg}
         className="defi-chart-svg"
-        viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
+        viewBox={`0 0 ${width} ${VIEW_HEIGHT}`}
         role="img"
         aria-label={`Chain TVL and daily fees over ${windowLabel}. TVL ranges from ${formatUsd(tvlMin)} to ${formatUsd(tvlMax)}; daily fees range from ${formatUsd(feeMin)} to ${formatUsd(feeMax)}.`}
       >
@@ -115,7 +128,7 @@ const TvlFeesChart = ({ series, days }) => {
               key={fraction}
               x1={PADDING.left}
               y1={y}
-              x2={VIEW_WIDTH - PADDING.right}
+              x2={width - PADDING.right}
               y2={y}
               className="defi-chart-grid"
             />
@@ -131,10 +144,10 @@ const TvlFeesChart = ({ series, days }) => {
         <path d={tvlLine} className="defi-chart-tvl" vectorEffect="non-scaling-stroke" />
         <path d={feesLine} className="defi-chart-fees" vectorEffect="non-scaling-stroke" />
 
-        <text x={VIEW_WIDTH - PADDING.right + 8} y={PADDING.top + 4} className="defi-chart-axis">
+        <text x={width - PADDING.right + 8} y={PADDING.top + 4} className="defi-chart-axis">
           {formatUsd(tvlMax)}
         </text>
-        <text x={VIEW_WIDTH - PADDING.right + 8} y={baseline} className="defi-chart-axis">
+        <text x={width - PADDING.right + 8} y={baseline} className="defi-chart-axis">
           {formatUsd(tvlMin)}
         </text>
         <text
