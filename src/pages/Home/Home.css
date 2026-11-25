@@ -217,12 +217,12 @@
 
   .hero input {
     min-width: 0;
-    width: 100%;
-    flex: 1 1 100%;
+    width: auto;
+    flex: 1 1 0;
     padding: 6px 0;
   }
 
-  .hero button {
+  .hero button[type='submit'] {
     width: 100%;
   }
 
