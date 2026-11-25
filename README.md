@@ -1,6 +1,6 @@
 # Crypto Price Tracker
 
-A modern, responsive web application for tracking cryptocurrency prices, backed by the CoinGecko API with CoinMarketCap, Binance and OKX as fallbacks.
+A modern, responsive web application for markets, DEX liquidity, protocol economics and crypto news. Prices are backed by the CoinGecko API with CoinMarketCap, Binance and OKX as fallbacks.
 
 ## 🚀 Features
 
@@ -8,6 +8,10 @@ A modern, responsive web application for tracking cryptocurrency prices, backed 
 - **Search**: Find any coin in the CoinGecko catalogue by name or symbol
 - **Resilient Fetching**: Falls back through CoinMarketCap, Binance and OKX when CoinGecko is rate-limited
 - **Four-Hour Retention**: Each response is kept as a JSON document in the browser and reused for four hours
+- **Price Charts**: 1H, 6H, 1D, 7D and 30D history on every coin detail page
+- **DEX Pools**: The 100 busiest pools on each of 25 chains, from DexScreener or GeckoTerminal
+- **DeFi Fundamentals**: TVL, fees and revenue for the top protocols and chains, with chain drill-downs
+- **Crypto News**: The 20 highest-ranked headlines from publisher feeds, tagged to tracked coins and chains
 - **Responsive Design**: Fully responsive layout with custom CSS breakpoints
 - **Multiple Currency Support**: Track prices in different fiat currencies
 - **Detailed Coin Information**: View comprehensive details for individual cryptocurrencies
@@ -130,18 +134,26 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed GitHub Pages deployment instruct
 
 ```
 src/
-├── components/        # Reusable UI components
-│   └── Navbar/       # Navigation component
-├── pages/            # Page components
-│   ├── Home/         # Homepage with coin list
-│   └── Coin/         # Individual coin details page
-├── context/          # Coin context, hook and provider
-├── constants/        # Shared constants (supported currencies)
-├── services/         # Provider clients, fallback chain and the four-hour JSON cache
-├── assets/           # Static assets
-├── App.jsx           # Main App component
-├── main.jsx          # Entry point
-└── index.css         # Global styles
+├── components/
+│   ├── Navbar/          # Navigation
+│   └── PriceChart/      # Coin price chart with 1H–30D ranges
+├── pages/
+│   ├── Home/            # Top-100 market table, search and currency switch
+│   ├── Coin/            # Coin detail page with price history
+│   ├── DexPools/        # Top 100 pools per chain
+│   ├── DefiFundamentals/ # TVL, fees and revenue with chain chart
+│   ├── CryptoNews/      # Ranked headlines and filters
+│   └── About/           # Project and author overview
+├── context/             # Coin context, hook and provider
+├── constants/           # Currencies, chart ranges, chains, coins and news config
+├── services/            # Provider clients, fallback chain, cache and snapshot readers
+├── assets/              # Static assets
+├── App.jsx              # Routes: /, /coin/:coinId, /pools, /defi, /news, /about
+├── main.jsx             # Entry point
+└── index.css            # Global styles
+scripts/                 # Node jobs that write the public/data snapshots
+public/data/             # defi/ and news/ JSON snapshots read at runtime
+tests/                   # node:test suites for metrics, chains and news
 ```
 
 ## 🔐 Environment Variables
@@ -153,11 +165,35 @@ VITE_COINGECKO_API_KEY=your_coingecko_api_key
 VITE_COINMARKETCAP_API_KEY=your_coinmarketcap_api_key  # optional fallback
 ```
 
+Optional base-URL overrides (`VITE_API_BASE_URL`, `VITE_CMC_API_BASE_URL`, `VITE_BINANCE_API_BASE_URL`, `VITE_OKX_API_BASE_URL`) and the job-only keys described below are listed in `.env.example`.
+
 `VITE_`-prefixed values are compiled into the bundle, which is what these keys need: they are read by the browser. Treat them as public (the CoinGecko demo key ships in the default build), or route the calls through your own backend if you need them private.
 
 If `VITE_COINMARKETCAP_API_KEY` is set, the app falls back to CoinMarketCap whenever a CoinGecko request fails (for example when the free-tier rate limit is exhausted). Without a key it falls back to CoinMarketCap's keyless public API instead, which covers prices, search and coin details but no price history.
 
 **Note**: Never commit `.env.local` to the repository. Use `.env.example` as a template for other developers.
+
+## 💧 DEX Pools
+
+The `/pools` page lists the 100 largest pools by 24-hour volume on each of the 25 chains in `src/constants/dexChains.js`, with volume, liquidity, price, 24h change, market cap and the hosting DEX.
+
+### Data sources
+
+Pools are fetched in the browser from [DexScreener](https://docs.dexscreener.com) or [GeckoTerminal](https://apiguide.geckoterminal.com). The page's source selector picks one or leaves it on `auto`.
+
+- **DexScreener** — the public API has no "top pools per chain" endpoint, so discovery starts from curated contracts and symbol searches, then walks outwards: each token reports its busiest pools, and the counterpart tokens of those pools become the next seeds. The load stops at 12 discovery calls and ranks everything it found by 24h volume.
+- **GeckoTerminal** — `/networks/{networkId}/pools` is a real top-pools endpoint, paged at 20 pools per page by 24h volume. A full view uses five pages, paced about a second apart and retried on `429`, because firing the pages at once trips its rate limiter.
+
+### Caching and refresh
+
+Pool responses are cached in the same browser store as prices, with a 60-second retention (`POOLS_RETENTION_MS` in `src/services/dexPools.js`). While the tab is visible, the page refetches on its own every minute; the **Refresh** button forces a fetch immediately, and the source switch refetches through the other provider. Search and column sorting work on the loaded set, so they cost no extra requests.
+
+### Known limitations
+
+- DexScreener's discovery is a heuristic based on 24h volume, not an official ranking; a different seed set can surface a slightly different list.
+- Quiet or new chains can return fewer than 100 active pools. The page says so instead of padding the table.
+- GeckoTerminal's rate limiter forces the paced paging, so the first uncached GeckoTerminal load takes a few seconds.
+- Pool data is read-only market data. The app never connects a wallet or places an order.
 
 ## 📖 API Documentation
 
@@ -326,7 +362,7 @@ For support, please open an issue or contact the maintainers.
 
 - [ ] Add advanced filtering and sorting options
 - [ ] Implement price alerts
-- [ ] Add price charts and historical data
+- [x] Add price charts and historical data
 - [ ] Support for more fiat currencies
 - [ ] Dark/Light theme toggle
 - [ ] Cryptocurrency watchlist/favorites
@@ -334,4 +370,4 @@ For support, please open an issue or contact the maintainers.
 
 ---
 
-**Last Updated**: June 28, 2026
+**Last Updated**: November 26, 2026
